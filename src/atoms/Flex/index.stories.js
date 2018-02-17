@@ -2,6 +2,6 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import Flex from '../atoms/Flex';
+import Flex from '.';
 
 storiesOf('atoms/Flex', module).add('basic', () => <Flex>Hello world</Flex>);
