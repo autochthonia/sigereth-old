@@ -8,41 +8,7 @@ import styled from 'react-emotion';
 // valid CSS, we should allow it.
 const isTruthyOrZero = value => value || value === 0;
 
-const Flexbox = styled(
-  ({
-    alignContent,
-    alignItems,
-    alignSelf,
-    children,
-    display,
-    element,
-    flex,
-    flexBasis,
-    flexDirection,
-    flexGrow,
-    flexShrink,
-    flexWrap,
-    height,
-    justifyContent,
-    margin,
-    marginBottom,
-    marginLeft,
-    marginRight,
-    marginTop,
-    maxHeight,
-    maxWidth,
-    minHeight,
-    minWidth,
-    order,
-    padding,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    width,
-    ...props
-  }) => React.createElement(element, props, children),
-)`
+const Flex = styled.div`
   ${props => (props.alignContent ? `align-content: ${props.alignContent};` : '')}
   ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : '')}
   ${props => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
@@ -73,7 +39,7 @@ const Flexbox = styled(
   ${props => (isTruthyOrZero(props.width) ? `width: ${props.width};` : '')}
 `;
 
-Flexbox.propTypes = {
+Flex.propTypes = {
   alignContent: PropTypes.oneOf(['center', 'flex-end', 'flex-start', 'space-around', 'space-between', 'stretch']),
   alignItems: PropTypes.oneOf(['baseline', 'center', 'flex-end', 'flex-start', 'stretch']),
   alignSelf: PropTypes.oneOf(['baseline', 'center', 'flex-end', 'flex-start', 'stretch']),
@@ -108,9 +74,9 @@ Flexbox.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-Flexbox.defaultProps = {
+Flex.defaultProps = {
   display: 'flex',
   element: 'div',
 };
 
-export default Flexbox;
+export default Flex;
