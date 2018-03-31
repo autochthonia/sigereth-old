@@ -9,12 +9,19 @@ import colors from '../../styles/colors';
 const md = new Remarkable();
 md.renderer = new RemarkableReactRenderer();
 
-const CharmWrapper = styled.div({});
+const CharmWrapper = styled.div({
+  fontFamily: "'Crimson Text', serif",
+  fontSize: '1em',
+  ':not(:last-child)': {
+      marginBottom: 24,
+  }
+});
 const Name = styled.h1({
   color: colors.blue,
-  marginBottom: 8,
+  margin: 0,
   fontVariant: 'small-caps',
-  fontSize: 24,
+  fontSize: '1.2em',
+  fontFamily: "'Vollkorn SC', serif",
 });
 const Cost = styled.span({});
 const Mins = styled.span({});
@@ -27,9 +34,15 @@ const Duration = styled.div({});
 const Prereqs = styled.div({});
 const CharmText = styled.div({
   marginTop: 12,
+  p: {
+      margin: 0,
+      ':not(:last-child)': {
+          marginBottom: 8,
+      }
+  }
 });
 
-const Combatant = ({ name, cost, mins, type, keywords, duration, prereqs, text }) => (
+const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text }) => (
   <CharmWrapper>
     <Name>{name}</Name>
     <div>
@@ -56,16 +69,4 @@ const Combatant = ({ name, cost, mins, type, keywords, duration, prereqs, text }
   </CharmWrapper>
 );
 
-// Or does it get these through context?
-Combatant.propTypes = {
-  character: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    init: PropTypes.number,
-  }).isRequired,
-  // mutate takes a path and a value e.g. `mutate('name', 'Peleps Deled')` and sends
-  // How do we bundle in character id?
-  mutate: PropTypes.func,
-};
-
-export default Combatant;
+export default Charm;
