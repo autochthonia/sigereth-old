@@ -1,9 +1,15 @@
-import { configure } from '@storybook/react';
+import React from 'react';
 
-const req = require.context('../src/', true, /\.stories\.js$/)
+import { configure, addDecorator } from '@storybook/react';
+
+import Global from '../src/layouts/Global';
+
+const req = require.context('../src/', true, /\.stories\.js$/);
 
 function loadStories() {
-  req.keys().forEach((filename) => req(filename))
+  req.keys().forEach(filename => req(filename));
 }
+
+addDecorator(storyFn => <Global>{storyFn()}</Global>);
 
 configure(loadStories, module);
