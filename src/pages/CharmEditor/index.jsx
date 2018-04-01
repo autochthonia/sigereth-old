@@ -1,14 +1,15 @@
-import { withStateHandlers } from 'recompose';
 import React from 'react';
 import styled from 'react-emotion';
 
-import { gracefulCraneStance } from '../../mocks/charm';
 import Charm from '../../molecules/Charm';
 import Page from '../../organisms/Page';
 
 const CharmEditorWrapper = styled.div({});
 
-const CharmEditor = ({ charms, editable, addCharm, onChange, toggleEditable }) => (
+const CharmEditor = ({ charms = [], editable, addCharm, onChange, toggleEditable }) => {
+  console.log(charms);
+  
+  return (
   <CharmEditorWrapper>
     <Page header={<button onClick={toggleEditable}>Toggle edit</button>}>
       {charms.map((c, idx) => (
@@ -17,6 +18,6 @@ const CharmEditor = ({ charms, editable, addCharm, onChange, toggleEditable }) =
       <button onClick={addCharm}>Add Charm</button>
     </Page>
   </CharmEditorWrapper>
-);
+)};
 
 export default CharmEditor;
