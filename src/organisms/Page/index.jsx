@@ -32,7 +32,7 @@ const PageWrapper = styled.div({
 
 const Page = ({ children, header, ...props }) => (
   <PageWrapper {...props}>
-    {header && <header>{header}</header>}
+    {header && <header css={{ display: 'flex' }}>{header}</header>}
     {children}
   </PageWrapper>
 );
