@@ -25,7 +25,8 @@ const PageWrapper = styled.div({
     maxWidth: 500,
     padding: 20,
     boxShadow: `0 4px 12px 0px ${tint(0.25, 'black')}`,
-    background: 'white',
+    // background: 'white',
+    background: tint(0.02, 'rgb(40, 40, 0)'),
   },
 });
 
