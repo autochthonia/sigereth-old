@@ -11,13 +11,37 @@ const black = {
   },
 };
 
+const HEADLINE_STACK = "'Vollkorn', serif";
+const BODY_STACK = "'Crimson Text', serif";
+
+const FONT_WEIGHT = 700;
+const bold = {
+  b: {
+    fontWeight: FONT_WEIGHT,
+  },
+};
+
 export const H1 = styled.h1({
   ...black,
+  ...bold,
   fontSize: '1.6em',
-  fontFamily: "'Vollkorn', serif",
-})
+  fontFamily: HEADLINE_STACK,
+});
+export const H2 = styled.h1({
+  ...black,
+  ...bold,
+  fontSize: '1.4em',
+  fontFamily: HEADLINE_STACK,
+});
+export const H3 = styled.h1({
+  ...black,
+  ...bold,
+  fontSize: '1.2em',
+  fontFamily: HEADLINE_STACK,
+});
 
 export const H4 = styled.h4({
+  ...bold,
   color: colors.blue,
   margin: 0,
   fontSize: '1.2em',
@@ -26,16 +50,18 @@ export const H4 = styled.h4({
 
 export const H5 = styled.h5({
   ...black,
+  ...bold,
   margin: 0,
-  fontFamily: "'Crimson Text', serif",
+  fontFamily: BODY_STACK,
   fontSize: '1em',
-  fontWeight: 700,
+  fontWeight: FONT_WEIGHT,
 });
 
 export const H6 = styled.h5({
   ...black,
+  ...bold,
   margin: 0,
-  fontFamily: "'Crimson Text', serif",
+  fontFamily: BODY_STACK,
   fontSize: '1em',
   fontWeight: 'normal',
   fontStyle: 'italic',
@@ -43,7 +69,8 @@ export const H6 = styled.h5({
 
 export const Body = styled.span({
   ...black,
-  fontFamily: "'Crimson Text', serif",
+  ...bold,
+  fontFamily: BODY_STACK,
   fontSize: '1em',
 });
 
