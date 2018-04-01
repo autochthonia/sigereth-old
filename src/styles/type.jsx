@@ -11,10 +11,15 @@ const black = {
   },
 };
 
-export const H4 = styled.h1({
+export const H1 = styled.h1({
+  ...black,
+  fontSize: '1.6em',
+  fontFamily: "'Vollkorn', serif",
+})
+
+export const H4 = styled.h4({
   color: colors.blue,
   margin: 0,
-  fontVariant: 'small-caps',
   fontSize: '1.2em',
   fontFamily: "'Vollkorn SC', serif",
 });
