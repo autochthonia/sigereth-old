@@ -1,21 +1,33 @@
+import { tint } from 'polished';
 import React from 'react';
 import styled from 'react-emotion';
 
 const PageWrapper = styled.div({
-  position: 'relative',
-  boxSizing: 'border-box',
-  overflow: 'hidden',
-  height: '279.4mm',
-  width: '215.9mm',
-  padding: '2.75cm 3cm',
-  paddingBottom: '1.5cm',
-  fontSize: 12,
-  textRendering: 'optimizeLegibility',
-  pageBreakBefore: 'always',
-  pageBreakAfter: 'always',
-  backgroundImage: 'url(https://i.imgur.com/DmZILfq.png)',
-  backgroundSize: 'cover',
-  columns: 2,
+
+  '@media print': {
+    position: 'relative',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+    height: '279.4mm',
+    width: '215.9mm',
+    padding: '1cm',
+    fontSize: 14,
+    textRendering: 'optimizeLegibility',
+    pageBreakBefore: 'always',
+    pageBreakAfter: 'always',
+    background: '#ccc', // temp
+    // backgroundImage: 'url(https://i.imgur.com/DmZILfq.png)',
+    // backgroundSize: 'cover',
+    columns: 2,
+  },
+  '@media screen': {
+    fontSize: 16,
+    margin: '40px auto',
+    maxWidth: 500,
+    padding: 20,
+    boxShadow: `0 4px 12px 0px ${tint(0.25, 'black')}`,
+    background: 'white',
+  },
 });
 
 const Page = ({ children, ...props }) => <PageWrapper {...props}>{children}</PageWrapper>;

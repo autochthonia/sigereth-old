@@ -1,71 +1,50 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Remarkable from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
 import styled from 'react-emotion';
 
-import colors from '../../styles/colors';
+import { Body, BodyDiv, BodyP, H4 } from '../../styles/type';
+import { mdBody } from '../../styles/markdown';
 
 const md = new Remarkable();
 md.renderer = new RemarkableReactRenderer();
 
 const CharmWrapper = styled.div({
-  fontFamily: "'Crimson Text', serif",
-  fontSize: '1em',
   ':not(:last-child)': {
-      marginBottom: 24,
-  }
+    marginBottom: 24,
+  },
 });
-const Name = styled.h1({
-  color: colors.blue,
-  margin: 0,
-  fontVariant: 'small-caps',
-  fontSize: '1.2em',
-  fontFamily: "'Vollkorn SC', serif",
-});
-const Cost = styled.span({});
-const Mins = styled.span({});
-const Type = styled.div({});
 
-const Keywords = styled.div({});
-
-const Duration = styled.div({});
-
-const Prereqs = styled.div({});
-const CharmText = styled.div({
+const CharmText = styled(BodyP)({
   marginTop: 12,
   p: {
-      margin: 0,
-      ':not(:last-child)': {
-          marginBottom: 8,
-      }
-  }
+    margin: 0,
+    ':not(:last-child)': {
+      marginBottom: 8,
+    },
+  },
 });
 
-const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text }) => (
+const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, editable }) => (
   <CharmWrapper>
-    <Name>{name}</Name>
-    <div>
-      <Cost>
-        <b>Cost:</b> {cost};&nbsp;
-      </Cost>
-      <Mins>
-        <b>Mins:</b> {mins}
-      </Mins>
-    </div>
-    <Type>
+    <H4>{name}</H4>
+    <BodyDiv>
+      <b>Cost:</b> {cost};&nbsp;
+      <b>Mins:</b> {mins}
+    </BodyDiv>
+    <BodyDiv>
       <b>Type:</b> {type}
-    </Type>
-    <Keywords>
+    </BodyDiv>
+    <BodyDiv>
       <b>Keywords:</b> {keywords}
-    </Keywords>
-    <Duration>
+    </BodyDiv>
+    <BodyDiv>
       <b>Duration:</b> {duration}
-    </Duration>
-    <Prereqs>
+    </BodyDiv>
+    <BodyDiv>
       <b>Prerequisite Charms:</b> {prereqs}
-    </Prereqs>
-    <CharmText>{md.render(text)}</CharmText>
+    </BodyDiv>
+    {mdBody.render(text)}
   </CharmWrapper>
 );
 
