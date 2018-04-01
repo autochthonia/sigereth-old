@@ -1,45 +1,36 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Remarkable from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
 import styled from 'react-emotion';
 
-import colors from '../../styles/colors';
+import { Body, BodyP, H4 } from '../../styles/type';
 
 const md = new Remarkable();
 md.renderer = new RemarkableReactRenderer();
 
 const CharmWrapper = styled.div({
-  fontFamily: "'Crimson Text', serif",
-  fontSize: '1em',
   ':not(:last-child)': {
-      marginBottom: 24,
-  }
+    marginBottom: 24,
+  },
 });
-const Name = styled.h1({
-  color: colors.blue,
-  margin: 0,
-  fontVariant: 'small-caps',
-  fontSize: '1.2em',
-  fontFamily: "'Vollkorn SC', serif",
-});
-const Cost = styled.span({});
-const Mins = styled.span({});
-const Type = styled.div({});
+const Name = H4;
+const Cost = Body;
+const Mins = Body;
+const Type = BodyP;
 
-const Keywords = styled.div({});
+const Keywords = BodyP;
 
-const Duration = styled.div({});
+const Duration = BodyP;
 
-const Prereqs = styled.div({});
-const CharmText = styled.div({
+const Prereqs = BodyP;
+const CharmText = styled(BodyP)({
   marginTop: 12,
   p: {
-      margin: 0,
-      ':not(:last-child)': {
-          marginBottom: 8,
-      }
-  }
+    margin: 0,
+    ':not(:last-child)': {
+      marginBottom: 8,
+    },
+  },
 });
 
 const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text }) => (
