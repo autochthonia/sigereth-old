@@ -3,7 +3,8 @@ import Remarkable from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
 import styled from 'react-emotion';
 
-import { Body, BodyP, H4 } from '../../styles/type';
+import { Body, BodyDiv, BodyP, H4 } from '../../styles/type';
+import { mdBody } from '../../styles/markdown';
 
 const md = new Remarkable();
 md.renderer = new RemarkableReactRenderer();
@@ -13,16 +14,7 @@ const CharmWrapper = styled.div({
     marginBottom: 24,
   },
 });
-const Name = H4;
-const Cost = Body;
-const Mins = Body;
-const Type = BodyP;
 
-const Keywords = BodyP;
-
-const Duration = BodyP;
-
-const Prereqs = BodyP;
 const CharmText = styled(BodyP)({
   marginTop: 12,
   p: {
@@ -33,30 +25,26 @@ const CharmText = styled(BodyP)({
   },
 });
 
-const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text }) => (
+const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, editable }) => (
   <CharmWrapper>
-    <Name>{name}</Name>
-    <div>
-      <Cost>
-        <b>Cost:</b> {cost};&nbsp;
-      </Cost>
-      <Mins>
-        <b>Mins:</b> {mins}
-      </Mins>
-    </div>
-    <Type>
+    <H4>{name}</H4>
+    <BodyDiv>
+      <b>Cost:</b> {cost};&nbsp;
+      <b>Mins:</b> {mins}
+    </BodyDiv>
+    <BodyDiv>
       <b>Type:</b> {type}
-    </Type>
-    <Keywords>
+    </BodyDiv>
+    <BodyDiv>
       <b>Keywords:</b> {keywords}
-    </Keywords>
-    <Duration>
+    </BodyDiv>
+    <BodyDiv>
       <b>Duration:</b> {duration}
-    </Duration>
-    <Prereqs>
+    </BodyDiv>
+    <BodyDiv>
       <b>Prerequisite Charms:</b> {prereqs}
-    </Prereqs>
-    <CharmText>{md.render(text)}</CharmText>
+    </BodyDiv>
+    {mdBody.render(text)}
   </CharmWrapper>
 );
 
