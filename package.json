@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "emotion": "^9.0.1",
+    "polished": "^1.9.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-app-rewire-emotion": "^3.0.0",
