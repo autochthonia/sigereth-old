@@ -1,8 +1,15 @@
+export const REFLEXIVE = { id: 'REFLEXIVE', text: 'Reflexive' };
+export const INSTANT = { id: 'INSTANT', text: 'Instant' };
+export const SUPPLEMENTAL = { id: 'SUPPLEMENTAL', text: 'Supplemental' };
+export const SIMPLE = { id: 'SIMPLE', text: 'Simple' };
+export const PERMANENT = { id: 'PERMANENT', text: 'Permanent' };
+export const charmTypes = [REFLEXIVE, INSTANT, SUPPLEMENTAL, SIMPLE, PERMANENT];
+
 export const gracefulCraneStance = {
   name: 'Graceful Crane Stance',
   cost: '3m',
   mins: 'Athletics 1, Essence 1',
-  type: 'Reflexive',
+  type: REFLEXIVE,
   keywords: 'None',
   duration: 'One Scene',
   prereqs: 'None',
@@ -14,7 +21,7 @@ export const shockwaveTechnique = {
   name: 'Shockwave Technique',
   cost: '6m, 1wp',
   mins: 'Brawl 5, Essence 3',
-  type: 'Reflexive',
+  type: REFLEXIVE,
   keywords: 'Withering-only',
   duration: 'Instant',
   prereqs: 'Crashing Wave Throw',
@@ -27,7 +34,7 @@ export const wdcEvos = [
     name: 'Single Watchful Snake-eye',
     cost: '1i per 1sm, 1wp',
     mins: 'Essence 1',
-    type: 'Supplemental',
+    type: SUPPLEMENTAL,
     keywords: 'None',
     duration: 'Instant',
     prereqs: 'None',
@@ -38,7 +45,7 @@ export const wdcEvos = [
     name: 'Adroit Coiled Snapdragon',
     cost: '- (3m, 1wp)',
     mins: 'Essence 1',
-    type: 'Permanent',
+    type: PERMANENT,
     keywords: 'None',
     duration: 'Permanent',
     prereqs: 'Single Watchful Snake-eye',
@@ -49,7 +56,7 @@ export const wdcEvos = [
     name: 'Virulent Draconic Efflorescence',
     cost: '3m',
     mins: 'Essence 2',
-    type: 'Supplemental',
+    type: SUPPLEMENTAL,
     keywords: 'Uniform, Stackable',
     duration: 'Instant',
     prereqs: 'Adroit Coiled Snapdragon',
@@ -60,7 +67,7 @@ export const wdcEvos = [
     name: 'Wreathing Bougainvillea Thorns',
     cost: '4m',
     mins: 'Essence 1',
-    type: 'Reflexive',
+    type: REFLEXIVE,
     keywords: 'None',
     duration: 'One Scene',
     prereqs: 'None',

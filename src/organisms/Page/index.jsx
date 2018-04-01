@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'react-emotion';
 
 const PageWrapper = styled.div({
-
   '@media print': {
     position: 'relative',
     boxSizing: 'border-box',
@@ -30,6 +29,11 @@ const PageWrapper = styled.div({
   },
 });
 
-const Page = ({ children, ...props }) => <PageWrapper {...props}>{children}</PageWrapper>;
+const Page = ({ children, header, ...props }) => (
+  <PageWrapper {...props}>
+    {header && <header>{header}</header>}
+    {children}
+  </PageWrapper>
+);
 
 export default Page;
