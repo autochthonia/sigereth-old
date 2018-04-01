@@ -31,7 +31,6 @@ const CharmText = styled(BodyP)({
 
 const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, editable, onChange }) => (
   <CharmWrapper>
-    {editable ? 'true' : 'false'}
     <H4>{editable ? <RIEInput value={name} change={onChange} propName="name" /> : name}</H4>
     <BodyDiv>
       <b>Cost:</b> {editable ? <RIEInput value={cost} change={onChange} propName="cost" /> : cost};&nbsp;
