@@ -1,7 +1,5 @@
 import { css } from 'emotion';
 import React from 'react';
-import Remarkable from 'remarkable';
-import RemarkableReactRenderer from 'remarkable-react';
 import styled from 'react-emotion';
 
 import { RIEInput, RIESelect, RIETextArea } from 'riek';
@@ -14,16 +12,6 @@ import Section from '../../atoms/Section';
 const CharmWrapper = styled.div({
   ':not(:last-child)': {
     marginBottom: 24,
-  },
-});
-
-const CharmText = styled(BodyP)({
-  marginTop: 12,
-  p: {
-    margin: 0,
-    ':not(:last-child)': {
-      marginBottom: 8,
-    },
   },
 });
 
@@ -42,10 +30,10 @@ const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, edit
         {editable ? <RIESelect value={type} change={onChange} propName="type" options={charmTypes} /> : type.text}
       </BodyDiv>
       <BodyDiv>
-        <b>Keywords:</b> {keywords}
+        <b>Keywords:</b> {editable ? <RIEInput value={keywords} change={onChange} propName="keywords" /> : keywords}
       </BodyDiv>
       <BodyDiv>
-        <b>Duration:</b> {duration}
+        <b>Duration:</b> {editable ? <RIEInput value={duration} change={onChange} propName="duration" /> : duration}
       </BodyDiv>
       <BodyDiv>
         <b>Prerequisite Charms:</b>{' '}
