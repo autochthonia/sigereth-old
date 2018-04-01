@@ -27,6 +27,8 @@ const CharmText = styled(BodyP)({
   },
 });
 
+const StyledRIETextArea = BodyP.withComponent(RIETextArea);
+
 const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, editable, onChange }) => (
   <CharmWrapper>
     <H4>{editable ? <RIEInput value={name} change={onChange} propName="name" /> : name}</H4>
@@ -50,8 +52,9 @@ const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, edit
         {editable ? <RIEInput value={prereqs} change={onChange} propName="prereqs" /> : prereqs}
       </BodyDiv>
     </Section>
+    
     {editable ? (
-      <RIETextArea rows="12" className={css({ width: '100%' })} value={text} change={onChange} propName="text" />
+      <StyledRIETextArea rows="12" className={css({ width: '100%' })} value={text} change={onChange} propName="text" />
     ) : (
       mdBody.render(text)
     )}
