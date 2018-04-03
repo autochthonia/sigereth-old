@@ -26,7 +26,7 @@ injectGlobal({
 // Alike:400
 
 export default ({ children, ...props }) => (
-  <div id="global" {...props}>
+  <div id="global" css={{ overflow: 'auto' }} {...props}>
     {children}
   </div>
 );
