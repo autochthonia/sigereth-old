@@ -6,7 +6,7 @@ import CharmEditor from '../../pages/CharmEditor';
 const LocalStorageCharmEditor = withStateHandlers(
   {
     charms: JSON.parse(localStorage.getItem('CharmEditor/charms')) || [],
-    editable: true,
+    editable: false,
   },
   {
     addCharm: state => () => {
