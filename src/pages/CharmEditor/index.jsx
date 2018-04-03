@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'react-emotion';
 
+import { HEADLINE_SC_STACK } from '../../styles/type';
 import Charm from '../../molecules/Charm';
 import Page from '../../organisms/Page';
 
 const CharmEditorWrapper = styled.div({});
 const Button = styled.button({
+  fontFamily: HEADLINE_SC_STACK,
   background: 'transparent',
   border: '1px solid gold',
   cursor: 'pointer',

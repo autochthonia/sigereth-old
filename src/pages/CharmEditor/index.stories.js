@@ -3,13 +3,13 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import { gracefulCraneStance } from '../../mocks/charm';
+import { demoCharm } from '../../mocks/charm';
 import CharmEditor from '.';
 
 const ConnectedCharmEditor = withStateHandlers(
-  { charms: [], editable: true },
+  { charms: [], editable: false },
   {
-    addCharm: (state, props) => payload => ({ ...state, charms: [...state.charms, { ...gracefulCraneStance }] }),
+    addCharm: (state, props) => payload => ({ ...state, charms: [...state.charms, { ...demoCharm }] }),
     onChange: (state, props) => (charm, index) => ({
       ...state,
       charms: state.charms.map((c, idx) => (index === idx ? charm : c)),

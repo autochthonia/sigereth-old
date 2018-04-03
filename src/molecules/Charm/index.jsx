@@ -42,7 +42,7 @@ const Charm = ({ name, cost, mins, type, keywords, duration, prereqs, text, edit
     </Section>
     
     {editable ? (
-      <StyledRIETextArea rows="12" className={css({ width: '100%' })} value={text} change={onChange} propName="text" />
+      <StyledRIETextArea rows="8" className={css({ width: '100%', minWidth: '100%', maxWidth: '100%' })} value={text} change={onChange} propName="text" />
     ) : (
       mdBody.render(text)
     )}

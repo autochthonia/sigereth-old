@@ -1,18 +1,28 @@
+import { shade } from 'polished';
 import styled from 'react-emotion';
 
 import colors from './colors';
 
-const black = {
+const fontColors = {
   '@media screen': {
     color: '#333',
   },
   '@media print': {
     color: '#000',
   },
+  a: {
+    color: colors.darkBlue,
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+    ':hover': {
+      color: colors.blue,
+    }
+  }
 };
 
-const HEADLINE_STACK = "'Vollkorn', serif";
-const BODY_STACK = "'Crimson Text', serif";
+export const HEADLINE_STACK = "'Vollkorn', serif";
+export const HEADLINE_SC_STACK = "'Vollkorn SC', serif";
+export const BODY_STACK = "'Crimson Text', serif";
 
 const FONT_WEIGHT = 700;
 const bold = {
@@ -22,19 +32,19 @@ const bold = {
 };
 
 export const H1 = styled.h1({
-  ...black,
+  ...fontColors,
   ...bold,
   fontSize: '1.6em',
   fontFamily: HEADLINE_STACK,
 });
 export const H2 = styled.h1({
-  ...black,
+  ...fontColors,
   ...bold,
   fontSize: '1.4em',
   fontFamily: HEADLINE_STACK,
 });
 export const H3 = styled.h1({
-  ...black,
+  ...fontColors,
   ...bold,
   fontSize: '1.2em',
   fontFamily: HEADLINE_STACK,
@@ -45,11 +55,11 @@ export const H4 = styled.h4({
   color: colors.blue,
   margin: 0,
   fontSize: '1.2em',
-  fontFamily: "'Vollkorn SC', serif",
+  fontFamily: HEADLINE_SC_STACK,
 });
 
 export const H5 = styled.h5({
-  ...black,
+  ...fontColors,
   ...bold,
   margin: 0,
   fontFamily: BODY_STACK,
@@ -58,7 +68,7 @@ export const H5 = styled.h5({
 });
 
 export const H6 = styled.h5({
-  ...black,
+  ...fontColors,
   ...bold,
   margin: 0,
   fontFamily: BODY_STACK,
@@ -68,7 +78,7 @@ export const H6 = styled.h5({
 });
 
 export const Body = styled.span({
-  ...black,
+  ...fontColors,
   ...bold,
   fontFamily: BODY_STACK,
   fontSize: '1em',
@@ -81,3 +91,5 @@ export const BodyP = styled(Body)({
   marginBottom: '0.75em',
   ':not(:last-child)': {},
 }).withComponent('p');
+
+export const A = Body.withComponent('a')

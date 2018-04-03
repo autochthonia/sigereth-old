@@ -1,6 +1,6 @@
 import { withStateHandlers } from 'recompose';
 
-import { gracefulCraneStance } from '../../mocks/charm';
+import { demoCharm } from '../../mocks/charm';
 import CharmEditor from '../../pages/CharmEditor';
 
 const LocalStorageCharmEditor = withStateHandlers(
@@ -10,7 +10,7 @@ const LocalStorageCharmEditor = withStateHandlers(
   },
   {
     addCharm: state => () => {
-      const newCharms = [...state.charms, gracefulCraneStance];
+      const newCharms = [...state.charms, demoCharm];
       console.debug("Setting1 localStorage['CharmEditor/charms']", newCharms);
       localStorage.setItem('CharmEditor/charms', JSON.stringify(newCharms));
       return { ...state, charms: newCharms };
