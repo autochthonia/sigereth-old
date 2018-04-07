@@ -16,17 +16,19 @@ const Button = styled.button({
   '@media print': { display: 'none' },
 });
 
-const CharmEditor = ({ charms = [], editable, addCharm, onChange, toggleEditable }) => (
+const CharmEditor = ({ charms = [], editable, addCharm, onChange, toggleEditable, deleteCharm }) => (
   <CharmEditorWrapper>
     <Page
-      header={
-        <Button onClick={toggleEditable}>
-          {editable ? 'Activate Markdown Mode' : 'Activate Edit Mode'}
-        </Button>
-      }
+      header={<Button onClick={toggleEditable}>{editable ? 'Activate Markdown Mode' : 'Activate Edit Mode'}</Button>}
     >
       {charms.map((c, idx) => (
-        <Charm key={c.id || idx} {...c} editable={editable} onChange={payload => onChange({ ...c, ...payload }, idx)} />
+        <Charm
+          key={c.id || idx}
+          {...c}
+          editable={editable}
+          onChange={payload => onChange({ ...c, ...payload }, idx)}
+          handleClickDelete={deleteCharm ? () => deleteCharm(idx) : undefined}
+        />
       ))}
       <Button css={{ width: '100%' }} onClick={addCharm}>
         Add Charm
