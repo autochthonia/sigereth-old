@@ -1,6 +1,8 @@
 module.exports = {
   aliases: {
-    styled: 'react-emotion',
-    PropTypes: 'prop-types',
+    styled: 'node_modules/react-emotion',
+  },
+  namedExports: {
+    lodash: ['without', 'noop'],
   },
 };
