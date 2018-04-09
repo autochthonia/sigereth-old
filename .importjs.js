@@ -3,6 +3,6 @@ module.exports = {
     styled: 'node_modules/react-emotion',
   },
   namedExports: {
-    lodash: ['without', 'noop'],
+    lodash: ['without', 'noop', 'debounce'],
   },
 };
