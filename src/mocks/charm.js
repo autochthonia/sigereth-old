@@ -5,6 +5,24 @@ export const SIMPLE = { id: 'SIMPLE', text: 'Simple' };
 export const PERMANENT = { id: 'PERMANENT', text: 'Permanent' };
 export const charmTypes = [REFLEXIVE, INSTANT, SUPPLEMENTAL, SIMPLE, PERMANENT];
 
+export const blankCharm = {
+  name: '',
+  cost: '',
+  mins: '',
+  type: REFLEXIVE,
+  keywords: '',
+  duration: '',
+  prereqs: '',
+  text:
+    `**Activate Edit Mode** above and click on any of the entries to edit text. The description box is Markdown enabled *when edit mode is off*. 
+
+* Emphasis, aka italics, with *asterisks* or _underscores_.
+* Strong emphasis, aka bold, with **asterisks** or __underscores__.
+* Combined emphasis with **asterisks and _underscores_**.
+* Strikethrough uses two tildes. ~~Scratch this.~~
+
+[Exalted Discord](https://discord.gg/GNQDdmc)`,
+};
 export const demoCharm = {
   name: 'Charm Name',
   cost: '1m',
