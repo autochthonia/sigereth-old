@@ -74,17 +74,7 @@ const Charm = ({
         />
       </BodyDiv>
       <BodyDiv>
-        <b>Type:</b>{' '}
-        {editable ? (
-          <RIESelect
-            value={type}
-            change={e => onChange(undefined, e.target.value)('type')}
-            propName="type"
-            options={charmTypes}
-          />
-        ) : (
-          type.text
-        )}
+        <b>Type:</b> <RIESelect value={type} change={type => onChange(type)} propName="type" options={charmTypes} />
       </BodyDiv>
       <BodyDiv>
         <b>Keywords:</b>{' '}
