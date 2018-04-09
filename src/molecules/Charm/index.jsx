@@ -1,12 +1,11 @@
 import { css } from 'emotion';
 import { debounce } from 'lodash';
 import { withHandlers } from 'recompose';
-import ContentEditable from 'react-sane-contenteditable';
 import React from 'react';
 import styled from 'react-emotion';
 import { RIESelect, RIETextArea } from 'riek';
 
-import { BodyDiv, H4, h4CSS } from '../../styles/type';
+import { BodyDiv, H4, h4CSS, bodyCSS } from '../../styles/type';
 import { charmTypes } from '../../mocks/charm';
 import { mdBody } from '../../styles/markdown';
 import Clear from '../../icons/Clear';
@@ -32,7 +31,6 @@ const Charm = ({
   editable,
   onChange,
   handleClickDelete,
-  contentEditableOnChange,
 }) => (
   <CharmWrapper>
     <Flex justifyContent="space-between">
@@ -126,7 +124,7 @@ const Charm = ({
     {editable ? (
       <RIETextArea
         rows="8"
-        className={css({ width: '100%', minWidth: '100%', maxWidth: '100%' })}
+        className={css({ width: '100%', minWidth: '100%', maxWidth: '100%', ...bodyCSS })}
         value={text}
         change={onChange}
         propName="text"

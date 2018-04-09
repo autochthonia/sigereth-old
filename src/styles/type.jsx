@@ -77,12 +77,13 @@ export const H6 = styled.h5({
   fontStyle: 'italic',
 });
 
-export const Body = styled.span({
+export const bodyCSS = {
   ...fontColors,
   ...bold,
   fontFamily: BODY_STACK,
   fontSize: '1em',
-});
+};
+export const Body = styled.span(bodyCSS);
 
 export const BodyDiv = Body.withComponent('div');
 

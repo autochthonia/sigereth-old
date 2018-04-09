@@ -47,6 +47,7 @@ export default class TextEditor extends Component {
   };
 
   _onChange = ({ value }) =>
+    // Look for if value !== this.state.value or something to prevent extra changes
     this.setState({ value }, () => this.props.onChange(Plain.serialize(value), this.props.name));
 
   _renderPlaceholder = props => {
