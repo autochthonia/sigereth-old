@@ -1,7 +1,7 @@
 import { withStateHandlers } from 'recompose';
 import { without } from 'lodash';
 
-import { demoCharm } from '../../mocks/charm';
+import { demoCharm, blankCharm } from '../../mocks/charm';
 import CharmEditor from '../../pages/CharmEditor';
 
 const LocalStorageCharmEditor = withStateHandlers(
@@ -11,7 +11,7 @@ const LocalStorageCharmEditor = withStateHandlers(
   },
   {
     addCharm: state => () => {
-      const newCharms = [...state.charms, demoCharm];
+      const newCharms = [...state.charms, blankCharm];
       console.debug("Setting localStorage['CharmEditor/charms']", newCharms);
       localStorage.setItem('CharmEditor/charms', JSON.stringify(newCharms));
       return { ...state, charms: newCharms };
