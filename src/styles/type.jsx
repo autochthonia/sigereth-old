@@ -15,8 +15,8 @@ const fontColors = {
     transition: 'color 0.2s',
     ':hover': {
       color: colors.blue,
-    }
-  }
+    },
+  },
 };
 
 export const HEADLINE_STACK = "'Vollkorn', serif";
@@ -49,13 +49,14 @@ export const H3 = styled.h1({
   fontFamily: HEADLINE_STACK,
 });
 
-export const H4 = styled.h4({
+export const h4CSS = {
   ...bold,
   color: colors.blue,
   margin: 0,
   fontSize: '1.2em',
   fontFamily: HEADLINE_SC_STACK,
-});
+};
+export const H4 = styled.h4(h4CSS);
 
 export const H5 = styled.h5({
   ...fontColors,
@@ -91,4 +92,4 @@ export const BodyP = styled(Body)({
   ':not(:last-child)': {},
 }).withComponent('p');
 
-export const A = Body.withComponent('a')
+export const A = Body.withComponent('a');
