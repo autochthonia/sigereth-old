@@ -18,6 +18,7 @@ const PageWrapper = styled.div({
     // backgroundImage: 'url(https://i.imgur.com/DmZILfq.png)',
     // backgroundSize: 'cover',
     columns: 2,
+    columnFill: 'auto',
   },
   '@media screen': {
     fontSize: 16,
