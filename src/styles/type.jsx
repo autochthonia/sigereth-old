@@ -42,12 +42,14 @@ export const H2 = styled.h1({
   fontSize: '1.4em',
   fontFamily: HEADLINE_STACK,
 });
-export const H3 = styled.h1({
+
+export const h3CSS = {
   ...fontColors,
   ...bold,
   fontSize: '1.2em',
   fontFamily: HEADLINE_STACK,
-});
+};
+export const H3 = styled.h3(h3CSS);
 
 export const h4CSS = {
   ...bold,

@@ -1,19 +1,25 @@
-import React from 'react';
+import { css } from 'emotion';
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'react-emotion';
 
+import { h3CSS } from '../../styles/type';
 import Flex from '../../atoms/Flex';
+import TextEditor from '../TextEditor';
 
-const CombatantWrapper = styled.div({
-    [Flex]: {
-        background: 'gold',
-    },
-    background: 'gold',
-});
+const CombatantWrapper = styled.div(({turnOver}) => ({
+  background: turnOver ? 'grey' : 'gold'
+}));
 
-const Combatant = ({ character: { name, init } }) => (
-  <CombatantWrapper>
-    {init} - {name}
+const Checkbox = styled.input({})
+
+const Combatant = ({ character: { name, init, turnOver } }) => (
+  <CombatantWrapper turnOver={turnOver}>
+    <Flex alignContent="center">
+      <Checkbox checked={turnOver} type="checkbox" />
+      <TextEditor plain content={String(init)} number className={css({ ...h3CSS, padding: 6, marginRight: 6 })} />
+      <TextEditor plain content={name} className={css({ ...h3CSS, display: 'inline-flex', alignContent: 'center', padding: 6 })} />
+    </Flex>
   </CombatantWrapper>
 );
 
