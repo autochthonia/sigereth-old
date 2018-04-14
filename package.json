@@ -46,6 +46,7 @@
     "@storybook/react": "^3.3.13",
     "babel-core": "^6.26.0",
     "babel-plugin-emotion": "^9.1.0",
+    "babel-runtime": "^6.26.0",
     "react-scripts": "^1.1.1",
     "riek": "^1.1.0"
   },
