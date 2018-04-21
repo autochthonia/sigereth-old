@@ -21,8 +21,8 @@ const Checkbox = styled.input({});
 const Combatant = ({
   mutate,
   className,
-  character: {
-    name,
+  combatant: {
+    name: combatantName,
     init,
     turnOver,
     personalMotes,
@@ -31,6 +31,9 @@ const Combatant = ({
     tempPeripheralMotes,
     willpower,
     tempWillpower,
+    character: {
+      name: characterName
+    }
   },
 }) => (
   <CombatantWrapper className={className} turnOver={turnOver}>
@@ -44,7 +47,7 @@ const Combatant = ({
         name="init"
       />
       <NameEditor
-        name={name}
+        name={combatantName || characterName}
         className={css({ ...h3CSS, display: 'inline-flex', alignContent: 'center' })}
         onChange={mutate}
       />
@@ -69,24 +72,28 @@ const Combatant = ({
 );
 
 Combatant.fragments = {
-  character: gql`
-  fragment CharacterFields on Character {
-    id
-    name
-    init
-    turnOver
-    tempPersonalMotes
-    personalMotes
-    tempPeripheralMotes
-    peripheralMotes
-    tempWillpower
-    willpower
-  }
-`,
+  combatant: gql`
+    fragment CombatantFields on Combatant {
+      id
+      init
+      turnOver
+      tempPersonalMotes
+      tempPeripheralMotes
+      tempWillpower
+      name
+      character {
+        id
+        name
+        personalMotes
+        peripheralMotes
+        willpower
+      }
+    }
+  `,
 };
 
 Combatant.propTypes = {
-  character: PropTypes.shape({
+  combatant: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
     init: PropTypes.number,
@@ -98,8 +105,6 @@ Combatant.propTypes = {
     peripheralMotes: PropTypes.number,
     willpower: PropTypes.number,
   }).isRequired,
-  // mutate takes a path and a value e.g. `mutate('name', 'Peleps Deled')` and sends
-  // How do we bundle in character id?
   mutate: PropTypes.func,
   className: PropTypes.string,
 };

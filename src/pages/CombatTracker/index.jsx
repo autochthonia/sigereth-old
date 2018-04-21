@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import styled from 'react-emotion';
 
 import { Body, H4 } from '../../styles/type';
+import { SubscribedCombatant } from '../../containers/ContainerCombatant';
 import Combatant from '../../organisms/Combatant';
 
 injectGlobal(
@@ -38,7 +39,7 @@ export default class CombatTracker extends Component {
   _sortCombatants = combatants => this.setState({ sortedCombatants: orderBy(combatants, ['init'], ['desc']) });
 
   render() {
-    const { id, name, turn, mutateCombatant, CombatantEl = Combatant } = this.props;
+    const { id, name, turn, CombatantEl = Combatant } = this.props;
     return (
       <Wrapper>
         <Header>
@@ -50,7 +51,6 @@ export default class CombatTracker extends Component {
             <CombatantEl
               id={c.id}
               key={c.id}
-              mutate={(value, field) => mutateCombatant(c.id, field, value)}
               className={css({ ':not(:last-child)': { marginBottom: 12 } })}
             />
           ))}
@@ -64,7 +64,7 @@ CombatTracker.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   turn: PropTypes.number.isRequired,
-  combatants: PropTypes.arrayOf(Combatant.propTypes.character),
+  combatants: PropTypes.arrayOf(Combatant.propTypes.combatant),
   mutateCombatant: PropTypes.func.isRequired,
-  CombatantEl: PropTypes.element,
+  CombatantEl: PropTypes.oneOfType([PropTypes.instanceOf(Combatant), PropTypes.instanceOf(SubscribedCombatant), PropTypes.func]),
 };
