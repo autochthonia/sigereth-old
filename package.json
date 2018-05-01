@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.1.4",
+    "apollo-link-ws": "^1.0.8",
     "emotion": "^9.0.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
@@ -21,13 +22,15 @@
     "react-portal": "^4.1.4",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-tippy": "^1.2.2",
     "recompose": "^0.26.0",
     "remarkable": "^1.7.1",
     "remarkable-react": "^1.3.0",
     "slate": "^0.33.4",
     "slate-hyperscript": "^0.5.10",
     "slate-plain-serializer": "^0.5.10",
-    "slate-react": "^0.12.4"
+    "slate-react": "^0.12.4",
+    "subscriptions-transport-ws": "^0.9.7"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -37,7 +40,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "now": "now ./build --public --name ex3-charms --alias ex3-charms",
-    "deploy": "yarn run build && yarn run now && now alias"
+    "deploy": "yarn run build && yarn run now"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.13",
