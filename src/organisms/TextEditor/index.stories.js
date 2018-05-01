@@ -17,5 +17,7 @@ storiesOf('organisms/TextEditor', module).add('charm tree', () => (
     <TextEditor multi content="This is multiline content"/>
     <label>Multi Label</label>
     <TextEditor multi content="This is multiline content too"/>
+    <label>Number</label>
+    <TextEditor number />
   </div>
 ));
