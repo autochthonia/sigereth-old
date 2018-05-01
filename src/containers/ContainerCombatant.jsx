@@ -1,9 +1,10 @@
 import { Mutation, Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import { merge } from 'lodash';
+import { merge, reject } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { GET_COMBAT } from './ContainerCombatTracker';
 import Combatant from '../organisms/Combatant';
 import withSubscription from '../HoC/withSubscription';
 
@@ -25,6 +26,17 @@ const COMBATANT_SUBSCRIPTION = gql`
     }
   }
   ${Combatant.fragments.combatant}
+`;
+
+const REMOVE_COMBATANT = gql`
+  mutation removeCombatant($id: ID!) {
+    deleteCombatant(id: $id) {
+      id
+      combat {
+        id
+      }
+    }
+  }
 `;
 
 const MUTATE_COMBATANT = gql`
@@ -54,61 +66,89 @@ const MUTATE_COMBATANT = gql`
 
 export const SubscribedCombatant = withSubscription(Combatant);
 
-const ContainerCombatant = ({ id, ...props }) => (
-  <Mutation mutation={MUTATE_COMBATANT}>
-    {updateCombatant => (
-      <Query query={GET_COMBATANT} variables={{ id }}>
-        {({ loading, error, subscribeToMore, data }) => {
-          if (loading) return 'Loading...';
-          if (error) return `Error! ${error.message}`;
+const ContainerCombatant = ({ id, combatId, ...props }) => (
+  <Mutation
+    mutation={REMOVE_COMBATANT}
+    variables={{ id }}
+    update={(
+      proxy,
+      {
+        data: {
+          deleteCombatant: { id: combatantId },
+        },
+      },
+    ) => {
+      console.debug(`REMOVE_COMBAT - combatId: ${combatId}, combatantId: ${combatantId}`);
+      const { Combat } = proxy.readQuery({
+        query: GET_COMBAT,
+        variables: { id: combatId },
+      });
+      proxy.writeQuery({
+        query: GET_COMBAT,
+        variables: { id: combatId },
+        data: { Combat: { ...Combat, combatants: reject(Combat.combatants, { id: combatantId }) } },
+      });
+    }}
+  >
+    {removeCombatant => (
+      <Mutation mutation={MUTATE_COMBATANT}>
+        {updateCombatant => (
+          <Query query={GET_COMBATANT} variables={{ id }}>
+            {({ loading, error, subscribeToMore, data }) => {
+              if (loading) return 'Loading...';
+              if (error) return `Error! ${error.message}`;
 
-          const id = data.Combatant.id;
-          return (
-            <SubscribedCombatant
-              {...props}
-              combatant={data.Combatant}
-              subscribe={() =>
-                subscribeToMore({
-                  document: COMBATANT_SUBSCRIPTION,
-                  variables: { id },
-                })
-              }
-              mutate={(value, field) => {
-                console.debug('updating combatant', id, field, value);
-                updateCombatant({
-                  variables: { id, [field]: value },
-                  optimisticResponse: {
-                    __typename: 'Mutation',
-                    updateCombatant: {
-                      __typename: 'Combatant',
-                      id,
-                      ...data.Combatant,
-                      [field]: value,
-                    },
-                  },
-                  update: (proxy, { data: { updateCombatant } }) => {
-                    const { Combatant } = proxy.readQuery({
-                      query: GET_COMBATANT,
+              const id = data.Combatant.id;
+              return (
+                <SubscribedCombatant
+                  {...props}
+                  combatant={data.Combatant}
+                  subscribe={() =>
+                    subscribeToMore({
+                      document: COMBATANT_SUBSCRIPTION,
                       variables: { id },
+                    })
+                  }
+                  mutate={(value, field) => {
+                    console.debug('updating combatant', id, field, value);
+                    updateCombatant({
+                      variables: { id, [field]: value },
+                      optimisticResponse: {
+                        __typename: 'Mutation',
+                        updateCombatant: {
+                          __typename: 'Combatant',
+                          id,
+                          ...data.Combatant,
+                          [field]: value,
+                        },
+                      },
+                      update: (proxy, { data: { updateCombatant } }) => {
+                        const { Combatant } = proxy.readQuery({
+                          query: GET_COMBATANT,
+                          variables: { id },
+                        });
+                        proxy.writeQuery({
+                          query: GET_COMBATANT,
+                          variables: { id },
+                          data: { Combatant: merge(Combatant, updateCombatant) },
+                        });
+                      },
                     });
-                    proxy.writeQuery({
-                      query: GET_COMBATANT,
-                      variables: { id },
-                      data: { Combatant: merge(Combatant, updateCombatant) },
-                    });
-                  },
-                });
-              }}
-            />
-          );
-        }}
-      </Query>
+                  }}
+                  removeCombatant={removeCombatant}
+                />
+              );
+            }}
+          </Query>
+        )}
+      </Mutation>
     )}
   </Mutation>
 );
 
 ContainerCombatant.propTypes = {
   id: PropTypes.string.isRequired,
+  combatId: PropTypes.string.isRequired,
 };
 
 export default ContainerCombatant;
