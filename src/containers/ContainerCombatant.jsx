@@ -32,9 +32,6 @@ const REMOVE_COMBATANT = gql`
   mutation removeCombatant($id: ID!) {
     deleteCombatant(id: $id) {
       id
-      combat {
-        id
-      }
     }
   }
 `;
@@ -66,10 +63,14 @@ const MUTATE_COMBATANT = gql`
 
 export const SubscribedCombatant = withSubscription(Combatant);
 
-const ContainerCombatant = ({ id, combatId, ...props }) => (
+const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
   <Mutation
     mutation={REMOVE_COMBATANT}
-    variables={{ id }}
+    variables={{ id: combatantId }}
+    // TODO: REMOVE_COMBATANT optimistic response
+    // optimisticResponse={{
+    //   // Some sort of temporary state that lets user know operation is in progress
+    // }}
     update={(
       proxy,
       {
@@ -93,7 +94,7 @@ const ContainerCombatant = ({ id, combatId, ...props }) => (
     {removeCombatant => (
       <Mutation mutation={MUTATE_COMBATANT}>
         {updateCombatant => (
-          <Query query={GET_COMBATANT} variables={{ id }}>
+          <Query query={GET_COMBATANT} variables={{ id: combatantId }}>
             {({ loading, error, subscribeToMore, data }) => {
               if (loading) return 'Loading...';
               if (error) return `Error! ${error.message}`;
