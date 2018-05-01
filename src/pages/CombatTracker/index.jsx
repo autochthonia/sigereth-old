@@ -26,24 +26,28 @@ const Header = styled.header({
 });
 const Main = styled.main({
   margin: '0 auto',
-  width: 600,
+  width: 700,
 });
 
 export default class CombatTracker extends Component {
+  // TODO: changed to memoized result?
   state = { sortedCombatants: orderBy(this.props.combatants, ['init'], ['desc']) };
 
   componentWillReceiveProps(nextProps) {
     this._sortCombatants(nextProps.combatants);
   }
 
-  _sortCombatants = combatants => this.setState({ sortedCombatants: orderBy(combatants, ['init'], ['desc']) });
+  _sortCombatants = (combatants = this.props.combatants) =>
+    this.setState({ sortedCombatants: orderBy(combatants, ['init'], ['desc']) });
 
   render() {
-    const { id, name, turn, CombatantEl = Combatant } = this.props;
+    const { id: combatId, name, turn, addCombatant, CombatantEl = Combatant } = this.props;
     return (
       <Wrapper>
         <Header>
-          <H4>{name || id}</H4>
+          <H4>
+            {name} ({combatId})
+          </H4>
           <Body>Turn {turn}</Body>
         </Header>
         <Main>
@@ -51,9 +55,11 @@ export default class CombatTracker extends Component {
             <CombatantEl
               id={c.id}
               key={c.id}
+              combatId={combatId}
               className={css({ ':not(:last-child)': { marginBottom: 12 } })}
             />
           ))}
+          <button onClick={() => addCombatant(combatId)}>Add Combatant</button>
         </Main>
       </Wrapper>
     );
@@ -66,5 +72,10 @@ CombatTracker.propTypes = {
   turn: PropTypes.number.isRequired,
   combatants: PropTypes.arrayOf(Combatant.propTypes.combatant),
   mutateCombatant: PropTypes.func.isRequired,
-  CombatantEl: PropTypes.oneOfType([PropTypes.instanceOf(Combatant), PropTypes.instanceOf(SubscribedCombatant), PropTypes.func]),
+  CombatantEl: PropTypes.oneOfType([
+    PropTypes.instanceOf(Combatant),
+    PropTypes.instanceOf(SubscribedCombatant),
+    PropTypes.func,
+  ]),
+  addCombatant: PropTypes.func.isRequired,
 };
