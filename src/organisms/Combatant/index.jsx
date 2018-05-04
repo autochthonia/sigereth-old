@@ -9,6 +9,7 @@ import { h3CSS } from '../../styles/type';
 import Clear from '../../icons/Clear';
 import Flex from '../../atoms/Flex';
 import InitEditor from './InitEditor';
+import LinkCharacter from './LinkCharacter';
 import Motes from './Motes';
 import NameEditor from './NameEditor';
 import NumberInput from '../../atoms/NumberInput';
@@ -22,8 +23,18 @@ const Checkbox = styled.input({});
 const Combatant = ({
   mutate,
   className,
-  combatant: { name: combatantName, init, turnOver, tempPersonalMotes, tempPeripheralMotes, tempWillpower, character },
+  combatant: {
+    name: combatantName,
+    init,
+    turnOver,
+    tempPersonalMotes,
+    tempPeripheralMotes,
+    tempWillpower,
+    character,
+  } = {},
   removeCombatant,
+  linkToCharacter,
+  availableCharacters,
 }) => {
   const { personalMotes, peripheralMotes, willpower, name: characterName } = character || {};
   return (
@@ -69,6 +80,9 @@ const Combatant = ({
             <span>/ {willpower}</span>
           </Tooltip>
         </section>
+        {linkToCharacter && (
+          <LinkCharacter linkToCharacter={linkToCharacter} availableCharacters={availableCharacters} />
+        )}
         <Clear css={{ cursor: 'pointer', ':hover': { fill: 'red' } }} onClick={removeCombatant} />
       </Flex>
     </CombatantWrapper>
@@ -112,6 +126,8 @@ Combatant.propTypes = {
   mutate: PropTypes.func,
   className: PropTypes.string,
   removeCombatant: PropTypes.func.isRequired,
+  linkToCharacter: PropTypes.func,
+  availableCharacters: LinkCharacter.propTypes.availableCharacters,
 };
 
 export default Combatant;
