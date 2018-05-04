@@ -1,65 +1,18 @@
-import { Mutation, Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
-import { merge, reject } from 'lodash';
+import { Mutation } from 'react-apollo';
+import { get, merge, reject, uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { GET_COMBAT } from './ContainerCombatTracker';
+import {
+  COMBATANT_SUBSCRIPTION,
+  GET_COMBATANT,
+  GetCombatant,
+  MUTATE_COMBATANT,
+  REMOVE_COMBATANT,
+} from '../gql/Combatant';
+import { GET_COMBAT } from '../gql/Combat';
 import Combatant from '../organisms/Combatant';
 import withSubscription from '../HoC/withSubscription';
-
-const GET_COMBATANT = gql`
-  query Combatant($id: ID!) {
-    Combatant(id: $id) {
-      ...CombatantFields
-    }
-  }
-  ${Combatant.fragments.combatant}
-`;
-
-const COMBATANT_SUBSCRIPTION = gql`
-  subscription onCombatantUpdated($id: ID!) {
-    Combatant(filter: { AND: [{ node: { id: $id } }, { mutation_in: UPDATED }] }) {
-      node {
-        ...CombatantFields
-      }
-    }
-  }
-  ${Combatant.fragments.combatant}
-`;
-
-const REMOVE_COMBATANT = gql`
-  mutation removeCombatant($id: ID!) {
-    deleteCombatant(id: $id) {
-      id
-    }
-  }
-`;
-
-const MUTATE_COMBATANT = gql`
-  mutation updateCombatant(
-    $id: ID!
-    $name: String
-    $init: Int
-    $turnOver: Boolean
-    $tempPersonalMotes: Int
-    $tempPeripheralMotes: Int
-    $tempWillpower: Int
-  ) {
-    updateCombatant(
-      id: $id
-      name: $name
-      init: $init
-      turnOver: $turnOver
-      tempPersonalMotes: $tempPersonalMotes
-      tempPeripheralMotes: $tempPeripheralMotes
-      tempWillpower: $tempWillpower
-    ) {
-      ...CombatantFields
-    }
-  }
-  ${Combatant.fragments.combatant}
-`;
 
 export const SubscribedCombatant = withSubscription(Combatant);
 
@@ -94,12 +47,12 @@ const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
     {removeCombatant => (
       <Mutation mutation={MUTATE_COMBATANT}>
         {updateCombatant => (
-          <Query query={GET_COMBATANT} variables={{ id: combatantId }}>
+          <GetCombatant query={GET_COMBATANT} combatantId={combatantId} variables={{ id: combatantId }}>
             {({ loading, error, subscribeToMore, data }) => {
               if (loading) return 'Loading...';
               if (error) return `Error! ${error.message}`;
 
-              const id = data.Combatant.id;
+              const id = get(data, 'Combatant.id', combatantId);
               return (
                 <SubscribedCombatant
                   {...props}
@@ -140,7 +93,7 @@ const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
                 />
               );
             }}
-          </Query>
+          </GetCombatant>
         )}
       </Mutation>
     )}
