@@ -4,7 +4,7 @@ module.exports = {
   },
   namedExports: {
     react: ['Component'],
-    lodash: ['without', 'noop', 'debounce', 'orderBy', 'merge', 'isNumber', 'toNumber', 'reject', 'uniqueId'],
+    lodash: ['without', 'noop', 'debounce', 'orderBy', 'merge', 'isNumber', 'toNumber', 'reject', 'uniqueId', 'get'],
     '@storybook/react': ['storiesOf', 'action'],
     'react-apollo': ['Mutation', 'Query'],
   },
