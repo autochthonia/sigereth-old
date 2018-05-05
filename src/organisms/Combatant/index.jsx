@@ -24,6 +24,7 @@ const Combatant = ({
   mutate,
   className,
   combatant: {
+    id: combatantId,
     name: combatantName,
     init,
     turnOver,
@@ -81,7 +82,11 @@ const Combatant = ({
           </Tooltip>
         </section>
         {linkToCharacter && (
-          <LinkCharacter linkToCharacter={linkToCharacter} availableCharacters={availableCharacters} />
+          <LinkCharacter
+            linkToCharacter={linkToCharacter}
+            combatantId={combatantId}
+            availableCharacters={availableCharacters}
+          />
         )}
         <Clear css={{ cursor: 'pointer', ':hover': { fill: 'red' } }} onClick={removeCombatant} />
       </Flex>

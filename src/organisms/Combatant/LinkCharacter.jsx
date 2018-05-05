@@ -4,16 +4,28 @@ import React from 'react';
 
 import Sheet from '../../icons/Sheet';
 
-const LinkCharacter = ({ linkToCharacter, availableCharacters }) => (
+const LinkCharacter = ({ linkToCharacter, availableCharacters, combatantId }) => (
   <PortalWithState closeOnOutsideClick closeOnEsc>
     {({ openPortal, closePortal, isOpen, portal }) => (
       <React.Fragment>
         <Sheet size={18} css={{ cursor: 'pointer', ':hover': { fill: 'red' } }} onClick={openPortal} />
         {portal(
           <p>
-            This is more advanced Portal. It handles its own state. <button onClick={closePortal}>Close me!</button>,
-            hit ESC or click outside of me.
-            {availableCharacters === null ? 'loading...' : availableCharacters.map(({ id }) => id)}
+            <button onClick={closePortal}>Close me!</button>
+            Link combatant: {combatantId} to:
+            {availableCharacters === null
+              ? 'loading...'
+              : availableCharacters.map(({ id: characterId, name: characterName }) => (
+                  <button
+                    onClick={() =>
+                      linkToCharacter({
+                        variables: { characterId, combatantId },
+                      })
+                    }
+                  >
+                    {characterName}
+                  </button>
+                ))}
           </p>,
         )}
       </React.Fragment>
@@ -22,6 +34,7 @@ const LinkCharacter = ({ linkToCharacter, availableCharacters }) => (
 );
 
 LinkCharacter.propTypes = {
+  combatantId: PropTypes.string.isRequired,
   linkToCharacter: PropTypes.func.isRequired,
   availableCharacters: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })),
 };
