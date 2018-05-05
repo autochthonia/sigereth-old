@@ -73,7 +73,6 @@ CombatTracker.propTypes = {
   name: PropTypes.string,
   turn: PropTypes.number.isRequired,
   combatants: PropTypes.arrayOf(Combatant.propTypes.combatant),
-  mutateCombatant: PropTypes.func.isRequired,
   CombatantEl: PropTypes.oneOfType([
     PropTypes.instanceOf(Combatant),
     PropTypes.instanceOf(SubscribedCombatant),
