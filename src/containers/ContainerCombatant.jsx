@@ -20,7 +20,7 @@ export const SubscribedCombatant = withSubscription(Combatant);
 const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
   <Mutation
     mutation={REMOVE_COMBATANT}
-    variables={{ id: combatantId }}
+    variables={{ id: combatantId, combatId }}
     // TODO: REMOVE_COMBATANT optimistic response
     // optimisticResponse={{
     //   // Some sort of temporary state that lets user know operation is in progress
@@ -63,7 +63,7 @@ const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
                       mutate={(value, field) => {
                         console.debug('updating combatant', id, field, value);
                         updateCombatant({
-                          variables: { id, [field]: value },
+                          variables: { id, combatId, [field]: value },
                           optimisticResponse: {
                             __typename: 'Mutation',
                             updateCombatant: {
