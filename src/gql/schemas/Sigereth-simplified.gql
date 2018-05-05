@@ -1,0 +1,44 @@
+﻿type Combatant @model {
+  id: ID! @isUnique
+  init: Int @defaultValue(value: 0)
+  name: String
+  tempPeripheralMotes: Int
+  tempPersonalMotes: Int
+  tempWillpower: Int
+  turnOver: Boolean @defaultValue(value: false)
+  character: Character @relation(name: "CombatantOnCharacter")
+  combat: Combat @relation(name: "CombatOnCombatant")
+}
+
+type Character @model {
+  id: ID! @isUnique
+  name: String!
+  peripheralMotes: Int
+  personalMotes: Int
+  willpower: Int @defaultValue(value: 3)
+  combatantInstances: [Combatant!]! @relation(name: "CombatantOnCharacter")
+}
+
+type Combat @model {
+  combatants: [Combatant!]! @relation(name: "CombatOnCombatant")
+  id: ID! @isUnique
+  name: String
+  turn: Int! @defaultValue(value: 0)
+}
+
+type File @model {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type User @model {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+}
