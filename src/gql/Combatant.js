@@ -10,6 +10,9 @@ export const ADD_COMBATANT = gql`
       id
       init
     }
+    updateCombat(id: $combat, dummy: "dummy") {
+      id
+    }
   }
 `;
 
@@ -34,8 +37,11 @@ export const COMBATANT_SUBSCRIPTION = gql`
 `;
 
 export const REMOVE_COMBATANT = gql`
-  mutation removeCombatant($id: ID!) {
+  mutation removeCombatant($id: ID!, $combatId: ID!) {
     deleteCombatant(id: $id) {
+      id
+    }
+    updateCombat(id: $combatId, dummy: "dummy") {
       id
     }
   }
@@ -50,6 +56,7 @@ export const MUTATE_COMBATANT = gql`
     $tempPersonalMotes: Int
     $tempPeripheralMotes: Int
     $tempWillpower: Int
+    $combatId: ID!
   ) {
     updateCombatant(
       id: $id
@@ -61,6 +68,9 @@ export const MUTATE_COMBATANT = gql`
       tempWillpower: $tempWillpower
     ) {
       ...CombatantFields
+    }
+    updateCombat(id: $combatId, dummy: "dummy") {
+      id
     }
   }
   ${Combatant.fragments.combatant}

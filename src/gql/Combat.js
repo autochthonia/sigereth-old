@@ -26,7 +26,7 @@ export const GET_COMBAT = gql`
 `;
 
 export const COMBAT_SUBSCRIPTION = gql`
-  subscription($id: ID!) {
+  subscription combatUpdated($id: ID!) {
     Combat(filter: { AND: [{ node: { id: $id } }, { mutation_in: UPDATED }] }) {
       node {
         ...CombatFields
