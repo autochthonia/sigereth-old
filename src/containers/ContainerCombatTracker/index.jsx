@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ADD_COMBATANT } from '../../gql/Combatant';
-import { GET_COMBAT, GetCombat } from '../../gql/Combat';
+import { COMBAT_SUBSCRIPTION, GET_COMBAT, GetCombat } from '../../gql/Combat';
 import { GetAllCharacters } from '../../gql/Character';
 import CombatTracker from '../../pages/CombatTracker';
 import ContainerCombatant from '../ContainerCombatant';
+import withSubscription from '../../HoC/withSubscription';
+
+const SubscribedCombatTracker = withSubscription(CombatTracker);
 
 const ContainerCombatTracker = ({
   match: {
@@ -15,7 +18,7 @@ const ContainerCombatTracker = ({
   },
 }) => (
   <GetCombat combatId={combatId}>
-    {({ loading, error, subscribeToMore, data }) => {
+    {({ loading, error, subscribeToMore: getCombatSubscribeToMore, data }) => {
       if (loading) return 'Loading Combat...';
       if (error) return `Error! ${error.message}`;
       return (
@@ -41,7 +44,13 @@ const ContainerCombatTracker = ({
                 subscribeToMore: getAllCharactersSubscribeToMore,
                 data: getAllCharactersData,
               }) => (
-                <CombatTracker
+                <SubscribedCombatTracker
+                  subscribe={() =>
+                    getCombatSubscribeToMore({
+                      document: COMBAT_SUBSCRIPTION,
+                      variables: { id: combatId },
+                    })
+                  }
                   id={data.Combat.id}
                   CombatantEl={ContainerCombatant}
                   turn={data.Combat.turn}
