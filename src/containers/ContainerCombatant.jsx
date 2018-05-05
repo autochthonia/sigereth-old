@@ -11,6 +11,7 @@ import {
   REMOVE_COMBATANT,
 } from '../gql/Combatant';
 import { GET_COMBAT } from '../gql/Combat';
+import { MutationLinkCharacter } from '../gql/Character';
 import Combatant from '../organisms/Combatant';
 import withSubscription from '../HoC/withSubscription';
 
@@ -24,14 +25,7 @@ const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
     // optimisticResponse={{
     //   // Some sort of temporary state that lets user know operation is in progress
     // }}
-    update={(
-      proxy,
-      {
-        data: {
-          deleteCombatant: { id: combatantId },
-        },
-      },
-    ) => {
+    update={proxy => {
       console.debug(`REMOVE_COMBAT - combatId: ${combatId}, combatantId: ${combatantId}`);
       const { Combat } = proxy.readQuery({
         query: GET_COMBAT,
@@ -47,53 +41,58 @@ const ContainerCombatant = ({ id: combatantId, combatId, ...props }) => (
     {removeCombatant => (
       <Mutation mutation={MUTATE_COMBATANT}>
         {updateCombatant => (
-          <GetCombatant query={GET_COMBATANT} combatantId={combatantId} variables={{ id: combatantId }}>
-            {({ loading, error, subscribeToMore, data }) => {
-              if (loading) return 'Loading...';
-              if (error) return `Error! ${error.message}`;
+          <MutationLinkCharacter>
+            {linkCharacter => (
+              <GetCombatant combatantId={combatantId}>
+                {({ loading, error, subscribeToMore, data }) => {
+                  if (loading) return 'Loading...';
+                  if (error) return `Error! ${error.message}`;
 
-              const id = get(data, 'Combatant.id', combatantId);
-              return (
-                <SubscribedCombatant
-                  {...props}
-                  combatant={data.Combatant}
-                  subscribe={() =>
-                    subscribeToMore({
-                      document: COMBATANT_SUBSCRIPTION,
-                      variables: { id },
-                    })
-                  }
-                  mutate={(value, field) => {
-                    console.debug('updating combatant', id, field, value);
-                    updateCombatant({
-                      variables: { id, [field]: value },
-                      optimisticResponse: {
-                        __typename: 'Mutation',
-                        updateCombatant: {
-                          __typename: 'Combatant',
-                          id,
-                          ...data.Combatant,
-                          [field]: value,
-                        },
-                      },
-                      update: (proxy, { data: { updateCombatant } }) => {
-                        const { Combatant } = proxy.readQuery({
-                          query: GET_COMBATANT,
+                  const id = get(data, 'Combatant.id', combatantId);
+                  return (
+                    <SubscribedCombatant
+                      {...props}
+                      linkToCharacter={linkCharacter}
+                      combatant={data.Combatant}
+                      subscribe={() =>
+                        subscribeToMore({
+                          document: COMBATANT_SUBSCRIPTION,
                           variables: { id },
+                        })
+                      }
+                      mutate={(value, field) => {
+                        console.debug('updating combatant', id, field, value);
+                        updateCombatant({
+                          variables: { id, [field]: value },
+                          optimisticResponse: {
+                            __typename: 'Mutation',
+                            updateCombatant: {
+                              __typename: 'Combatant',
+                              id,
+                              ...data.Combatant,
+                              [field]: value,
+                            },
+                          },
+                          update: (proxy, { data: { updateCombatant: updateCombatantResponse } }) => {
+                            const { Combatant: CombatantQuery } = proxy.readQuery({
+                              query: GET_COMBATANT,
+                              variables: { id },
+                            });
+                            proxy.writeQuery({
+                              query: GET_COMBATANT,
+                              variables: { id },
+                              data: { Combatant: merge(CombatantQuery, updateCombatantResponse) },
+                            });
+                          },
                         });
-                        proxy.writeQuery({
-                          query: GET_COMBATANT,
-                          variables: { id },
-                          data: { Combatant: merge(Combatant, updateCombatant) },
-                        });
-                      },
-                    });
-                  }}
-                  removeCombatant={removeCombatant}
-                />
-              );
-            }}
-          </GetCombatant>
+                      }}
+                      removeCombatant={removeCombatant}
+                    />
+                  );
+                }}
+              </GetCombatant>
+            )}
+          </MutationLinkCharacter>
         )}
       </Mutation>
     )}
