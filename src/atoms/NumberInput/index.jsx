@@ -74,6 +74,7 @@ export default class NumberInput extends Component {
         onKeyDown={this.onKeyDown}
         value={this.props.value}
         onChange={this.onChange}
+        min={this.props.min}
       />
     );
   }

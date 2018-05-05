@@ -9,7 +9,7 @@ export default class Motes extends Component {
     return (
       <Tooltip title={`${this.props.type} Motes`}>
         <span>
-          <NumberInput onChange={this.props.onChange} value={this.props.temp} name={this.props.name} />
+          <NumberInput min="0" onChange={this.props.onChange} value={this.props.temp} name={this.props.name} />
           <span>{this.props.permanent !== undefined && `/${this.props.permanent}`}</span>
         </span>
       </Tooltip>
