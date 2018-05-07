@@ -10,30 +10,33 @@ export default class Motes extends Component {
   };
 
   componentWillMount() {
-    window.addEventListener('keydown', e => {
-      if (e.ctrlKey) {
-        this.setState({
-          ctrlKey: true,
-        });
-      }
-    });
-    window.addEventListener('keyup', e => {
-      if (e.ctrlKey) {
-        this.setState({
-          ctrlKey: false,
-        });
-      }
-    });
+    window.addEventListener('keydown', this._handleKeyDown);
+    window.addEventListener('keyup', this._handleKeyUp);
   }
-
   componentWillUnmount() {
-    window.removeEventListener('keydown');
-    window.removeEventListener('keyup');
+    window.removeEventListener('keydown', this._handleKeyDown);
+    window.removeEventListener('keyup', this._handleKeyUp);
   }
+  _handleKeyDown = e => {
+    if (e.ctrlKey) {
+      this.setState({
+        ctrlKey: true,
+      });
+    }
+  };
+
+  _handleKeyUp = e => {
+    if (e.ctrlKey) {
+      this.setState({
+        ctrlKey: false,
+      });
+    }
+  };
 
   _onChange = (newValue, name, e) => {
+    const willGoOverMax = newValue > this.props.permanent;
     const currentlyOverMax = this.props.temp > this.props.permanent;
-    if (this.props.permanent && newValue > this.props.permanent && !currentlyOverMax && !this.state.ctrlKey) {
+    if (this.props.permanent && willGoOverMax && !currentlyOverMax && !this.state.ctrlKey) {
       return this.props.onChange(this.props.permanent, name);
     }
     return this.props.onChange(newValue, name);
