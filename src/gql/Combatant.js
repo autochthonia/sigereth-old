@@ -57,6 +57,7 @@ export const MUTATE_COMBATANT = gql`
     $tempPeripheralMotes: Int
     $tempWillpower: Int
     $combatId: ID!
+    $onslaught: Int
   ) {
     updateCombatant(
       id: $id
@@ -66,6 +67,7 @@ export const MUTATE_COMBATANT = gql`
       tempPersonalMotes: $tempPersonalMotes
       tempPeripheralMotes: $tempPeripheralMotes
       tempWillpower: $tempWillpower
+      onslaught: $onslaught
     ) {
       ...CombatantFields
     }

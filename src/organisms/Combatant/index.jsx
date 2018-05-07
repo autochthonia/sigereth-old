@@ -32,6 +32,7 @@ const Combatant = ({
     tempPeripheralMotes,
     tempWillpower,
     character,
+    onslaught,
   } = {},
   removeCombatant,
   linkToCharacter,
@@ -62,6 +63,9 @@ const Combatant = ({
             flex: '1 1 auto',
           }}
         >
+          <Tooltip title="Onslaught">
+            <NumberInput name="onslaught" min="0" value={onslaught} onChange={mutate} />
+          </Tooltip>
           <Motes
             type="Personal"
             temp={tempPersonalMotes}
@@ -104,6 +108,7 @@ Combatant.fragments = {
       tempPersonalMotes
       tempPeripheralMotes
       tempWillpower
+      onslaught
       character {
         id
         name
